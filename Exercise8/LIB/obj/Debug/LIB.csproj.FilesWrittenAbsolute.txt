@@ -3,3 +3,8 @@
 /root/Documents/Exercise8/LIB/bin/Debug/LIB.dll
 /root/Documents/Exercise8/LIB/obj/Debug/LIB.dll
 /root/Documents/Exercise8/LIB/obj/Debug/LIB.dll.mdb
+/root/IKNny/Exercise8/LIB/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/root/IKNny/Exercise8/LIB/bin/Debug/LIB.dll.mdb
+/root/IKNny/Exercise8/LIB/bin/Debug/LIB.dll
+/root/IKNny/Exercise8/LIB/obj/Debug/LIB.dll
+/root/IKNny/Exercise8/LIB/obj/Debug/LIB.dll.mdb
