@@ -31,38 +31,33 @@ namespace tcp
 		private file_server ()
 		{
 			TcpListener serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
-			serverSocket.Start();
-			//Console.WriteLine ("IP addresse: " + host.AddressList[0] + " " + host.AddressList.GetValue(0));
+			serverSocket.Start ();
 			
 			TcpClient newClient = serverSocket.AcceptTcpClient ();
 			Console.WriteLine ("Client Accepted...");
 
-			string receivedText = LIB.readTextTCP (newClient.GetStream ());
+			//string receivedText = LIB.readTextTCP (newClient.GetStream ());
 
-			Console.WriteLine ("Received Text: " + receivedText);
+			//Console.WriteLine ("Received Text: " + receivedText);
 
-			/*
-			while (true) 
+			// Recieve filename from client
+			NetworkStream networkStream = newClient.GetStream ();
+			String filename = LIB.readTextTCP (networkStream);
+			//Console.WriteLine(filename);
+
+			// Check to see if filename exists and notify client
+			long filesize = LIB.check_File_Exists (filename);
+			//Console.WriteLine (filesize);
+			string filesizeascii = filesize.ToString();
+			LIB.writeTextTCP (networkStream, filesizeascii);
+
+			if (filesize != 0) 
 			{
-				NetworkStream networkStream = newClient.GetStream ();
-				byte[] readBytes = new byte[1000];
-				var numberOfBytesRead = 0;
-				StringBuilder completeMessage = new StringBuilder();
-
-
-				do{
-					numberOfBytesRead = networkStream.Read(readBytes, 0, readBytes.Length);
-
-					completeMessage.AppendFormat("{0}", Encoding.ASCII.GetString(readBytes, 0, numberOfBytesRead));
-
-				}
-				while(networkStream.DataAvailable);
-
-				Console.WriteLine (completeMessage.ToString ());
-				sendFile (completeMessage.ToString(), completeMessage.Length,networkStream);
+				sendFile (filename, filesize, networkStream);
 			}
-			*/
 
+			newClient.Close ();
+			serverSocket.Stop ();
 		}
 
 		/// <summary>
@@ -79,7 +74,7 @@ namespace tcp
 		/// </param>
 		private void sendFile (String fileName, long fileSize, NetworkStream io)
 		{
-			// TO DO Your own code
+			// TO DO Your own cod
 		}
 
 		/// <summary>
