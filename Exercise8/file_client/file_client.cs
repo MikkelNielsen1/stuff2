@@ -15,8 +15,7 @@ namespace tcp
 		/// The BUFSIZE.
 		/// </summary>
 		const int BUFSIZE = 1000;
-
-		//private byte[] ipAddress = new byte[]{10,0,0,1};
+	
 		/// <summary>
 		/// Initializes a new instance of the <see cref="file_client"/> class.
 		/// </summary>
@@ -25,38 +24,55 @@ namespace tcp
 		/// </param>
 		private file_client (string[] args)
 		{
-			string ipa = args [1];
-			IPAddress ipAddress = IPAddress.Parse(ipa);
-			Console.WriteLine (ipa + ipAddress);
-			/*long num = Int64.Parse (args [1]);
-			ipAddress = new byte[] {(byte) num};
+			try
+			{
+				string ipa = args [0];
 
-			Console.WriteLine (args[1] + num + ipAddress); */
+				IPAddress ipAddress = IPAddress.Parse(ipa);
+				//Console.WriteLine (ipa + ipAddress);
 				
 			
-			TcpClient clientSocket = new TcpClient ();
-			clientSocket.Connect(ipAddress,PORT);
+				TcpClient clientSocket = new TcpClient ();
 
-			NetworkStream serverStream = clientSocket.GetStream();
+				clientSocket.Connect(ipAddress,PORT);
+				
+		
 
-			// Send filename to server
-			string filename = "Mikkel er en pickle";
-			LIB.writeTextTCP (serverStream, filename);
+				NetworkStream serverStream = clientSocket.GetStream();
 
-			// Extract filename
-			string extractedFilename = LIB.extractFileName (filename);
+				// Send filename to server
+				string filename = args [1];
+				LIB.writeTextTCP (serverStream, filename);
 
-			// Recieve notice if filename exists
-			string currentfilesize = LIB.readTextTCP (serverStream);
-			Console.WriteLine (currentfilesize);
+				// Extract filename
+				string extractedFilename = LIB.extractFileName (filename);
 
-			// If filename exists recieve file
-			if (Int32.Parse(currentfilesize) != 0) {
-				receiveFile (extractedFilename, serverStream);
-			} else
-				Console.WriteLine ("Filename: " + extractedFilename + " does not exist"); 
+				// Recieve notice if filename exists
+				long currentfilesize = LIB.getFileSizeTCP (serverStream);
+				//Console.WriteLine (currentfilesize);
 
-		}
+				// If filename exists recieve file
+				if (currentfilesize != 0) {
+					Console.WriteLine ("Filesize: " + currentfilesize);
+					Console.WriteLine ("Requested file: " + filename);
+					Console.WriteLine ("Extracted file name: " + extractedFilename);
+					receiveFile (extractedFilename, serverStream, currentfilesize);
+				} else
+					Console.WriteLine ("Filename: " + extractedFilename + " does not exist"); 
+			}
+			catch(ArgumentException e) 
+			{
+				Console.WriteLine ("ArgumentException: " + e.Message);
+			}
+			catch(SocketException se)
+			{
+				Console.WriteLine("SocketException: " + se.Message);
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine("Exception: " + e.Message);
+			}
+
 
 		/// <summary>
 		/// Receives the file.
@@ -67,10 +83,26 @@ namespace tcp
 		/// <param name='io'>
 		/// Network stream for reading from the server
 		/// </param>
-		private void receiveFile (String fileName, NetworkStream io)
+		private void receiveFile (string fileName, NetworkStream io, long filesize)
 		{
-			long filesize = LIB.getFileSizeTCP (io);
-			// Loopet som indslæser filen til filnavnet Filename
+			long readBytes = 0;
+		
+			Byte[] readbuffer = new byte[BUFSIZE];
+		
+
+			FileStream downloadedfile = File.Create (fileName);
+
+			while (filesize > 0) 
+			{
+				readBytes = io.Read (readbuffer, 0, BUFSIZE);
+				filesize -= readBytes;
+
+				downloadedfile.Write (readbuffer, 0, (int)readBytes);
+			
+				Console.WriteLine (filesize);
+			}
+			Console.WriteLine ("Download complete...");
+
 		}
 
 		/// <summary>
