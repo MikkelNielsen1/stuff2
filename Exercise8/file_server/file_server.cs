@@ -30,34 +30,45 @@ namespace tcp
  		/// </summary>
 		private file_server ()
 		{
-			TcpListener serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
-			serverSocket.Start ();
-			
-			TcpClient newClient = serverSocket.AcceptTcpClient ();
-			Console.WriteLine ("Client Accepted...");
-
-			//string receivedText = LIB.readTextTCP (newClient.GetStream ());
-
-			//Console.WriteLine ("Received Text: " + receivedText);
-
-			// Recieve filename from client
-			NetworkStream networkStream = newClient.GetStream ();
-			String filename = LIB.readTextTCP (networkStream);
-			//Console.WriteLine(filename);
-
-			// Check to see if filename exists and notify client
-			long filesize = LIB.check_File_Exists (filename);
-			//Console.WriteLine (filesize);
-			string filesizeascii = filesize.ToString();
-			LIB.writeTextTCP (networkStream, filesizeascii);
-
-			if (filesize != 0) 
+			try
 			{
-				sendFile (filename, filesize, networkStream);
-			}
+				TcpListener serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
+				serverSocket.Start ();
+				
+				TcpClient newClient = serverSocket.AcceptTcpClient ();
+				Console.WriteLine ("Client Accepted...");
 
-			newClient.Close ();
-			serverSocket.Stop ();
+				// Recieve filename from client
+				NetworkStream networkStream = newClient.GetStream ();
+				String filename = LIB.readTextTCP (networkStream);
+				//Console.WriteLine(filename);
+
+				// Check to see if filename exists and notify client
+				long filesize = LIB.check_File_Exists (filename);
+				//Console.WriteLine (filesize);
+				string filesizeascii = filesize.ToString();
+				LIB.writeTextTCP (networkStream, filesizeascii);
+
+				if (filesize != 0) 
+				{
+					sendFile (filename, filesize, networkStream);
+				}
+
+				newClient.Close ();
+				serverSocket.Stop ();
+			}
+			catch(ArgumentException e) 
+			{
+				Console.WriteLine ("ArgumentException: " + e.Message);
+			}
+			catch(SocketException se)
+			{
+				Console.WriteLine("SocketException: " + se.Message);
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine("Exception: " + e.Message);
+			}
 		}
 
 		/// <summary>
@@ -67,14 +78,24 @@ namespace tcp
 		/// The filename.
 		/// </param>
 		/// <param name='fileSize'>
-		/// The filesize.
+		/// The filesize.	
 		/// </param>
 		/// <param name='io'>
 		/// Network stream for writing to the client.
 		/// </param>
 		private void sendFile (String fileName, long fileSize, NetworkStream io)
 		{
-			// TO DO Your own cod
+			Byte[] readBytes = new byte[BUFSIZE];
+
+			FileStream filestream = File.OpenRead (fileName);
+
+			int actualReadBytes = 0;
+			while ( (actualReadBytes = filestream.Read (readBytes, 0, BUFSIZE)) > 0)
+			{
+				io.Write(readBytes, 0, actualReadBytes);
+			}
+
+
 		}
 
 		/// <summary>
@@ -86,7 +107,7 @@ namespace tcp
 		public static void Main (string[] args)
 		{
 			Console.WriteLine ("Server starts...");
-			new file_server();
+			file_server fs = new file_server ();
 		}
 	}
 }
