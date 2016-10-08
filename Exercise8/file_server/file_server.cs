@@ -37,15 +37,13 @@ namespace tcp
 				
 				TcpClient newClient = serverSocket.AcceptTcpClient ();
 				Console.WriteLine ("Client Accepted...");
-
-				// Recieve filename from client
+				
 				NetworkStream networkStream = newClient.GetStream ();
 				String filename = LIB.readTextTCP (networkStream);
-				//Console.WriteLine(filename);
+				
 
 				// Check to see if filename exists and notify client
 				long filesize = LIB.check_File_Exists (filename);
-				//Console.WriteLine (filesize);
 				string filesizeascii = filesize.ToString();
 				LIB.writeTextTCP (networkStream, filesizeascii);
 
@@ -94,8 +92,6 @@ namespace tcp
 			{
 				io.Write(readBytes, 0, actualReadBytes);
 			}
-
-
 		}
 
 		/// <summary>
