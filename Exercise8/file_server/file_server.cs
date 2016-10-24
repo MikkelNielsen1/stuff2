@@ -35,16 +35,16 @@ namespace tcp
 			{
 				serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
 				serverSocket.Start ();
-
+				
 				while(true)
 				{
-					TcpClient newClient = serverSocket.AcceptTcpClient ();
-					Console.WriteLine ("Client Accepted...");
-
+				TcpClient newClient = serverSocket.AcceptTcpClient ();
+				Console.WriteLine ("Client Accepted...");
+				
 					// Recieve filename from client
-					NetworkStream networkStream = newClient.GetStream ();
-					String filename = LIB.readTextTCP (networkStream);
-					//Console.WriteLine(filename);
+				NetworkStream networkStream = newClient.GetStream ();
+				String filename = LIB.readTextTCP (networkStream);
+				
 
 					// Check to see if filename exists and notify client
 					long filesize = LIB.check_File_Exists (filename);

@@ -29,8 +29,6 @@ namespace tcp
 				string ipa = args [0];
 
 				IPAddress ipAddress = IPAddress.Parse(ipa);
-				//Console.WriteLine (ipa + ipAddress);
-				
 			
 				TcpClient clientSocket = new TcpClient ();
 
@@ -53,9 +51,6 @@ namespace tcp
 
 				// If filename exists recieve file
 				if (currentfilesize != 0) {
-					Console.WriteLine ("Filesize: " + currentfilesize);
-					Console.WriteLine ("Requested file: " + filename);
-					Console.WriteLine ("Extracted file name: " + extractedFilename);
 					receiveFile (extractedFilename, serverStream, currentfilesize);
 				} else
 					Console.WriteLine ("Filename: " + extractedFilename + " does not exist"); 
@@ -98,8 +93,6 @@ namespace tcp
 				filesize -= readBytes;
 
 				downloadedfile.Write (readbuffer, 0, (int)readBytes);
-			
-				Console.WriteLine (filesize);
 			}
 			Console.WriteLine ("Download complete...");
 
