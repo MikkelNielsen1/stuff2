@@ -30,32 +30,35 @@ namespace tcp
  		/// </summary>
 		private file_server ()
 		{
+			TcpListener serverSocket;
 			try
 			{
-				TcpListener serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
+				serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
 				serverSocket.Start ();
-				
-				TcpClient newClient = serverSocket.AcceptTcpClient ();
-				Console.WriteLine ("Client Accepted...");
 
-				// Recieve filename from client
-				NetworkStream networkStream = newClient.GetStream ();
-				String filename = LIB.readTextTCP (networkStream);
-				//Console.WriteLine(filename);
-
-				// Check to see if filename exists and notify client
-				long filesize = LIB.check_File_Exists (filename);
-				//Console.WriteLine (filesize);
-				string filesizeascii = filesize.ToString();
-				LIB.writeTextTCP (networkStream, filesizeascii);
-
-				if (filesize != 0) 
+				while(true)
 				{
-					sendFile (filename, filesize, networkStream);
-				}
+					TcpClient newClient = serverSocket.AcceptTcpClient ();
+					Console.WriteLine ("Client Accepted...");
 
-				newClient.Close ();
-				serverSocket.Stop ();
+					// Recieve filename from client
+					NetworkStream networkStream = newClient.GetStream ();
+					String filename = LIB.readTextTCP (networkStream);
+					//Console.WriteLine(filename);
+
+					// Check to see if filename exists and notify client
+					long filesize = LIB.check_File_Exists (filename);
+					//Console.WriteLine (filesize);
+					string filesizeascii = filesize.ToString();
+					LIB.writeTextTCP (networkStream, filesizeascii);
+
+					if (filesize != 0) 
+					{
+						sendFile (filename, filesize, networkStream);
+					}
+
+					newClient.Close ();
+				}
 			}
 			catch(ArgumentException e) 
 			{
@@ -68,6 +71,9 @@ namespace tcp
 			catch(Exception e)
 			{
 				Console.WriteLine("Exception: " + e.Message);
+			}
+			finally {
+				serverSocket.Stop ();
 			}
 		}
 

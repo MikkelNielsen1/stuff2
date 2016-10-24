@@ -1,0 +1,13 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UDPserver", "UDPserver\UDPserver.shproj", "{8031132F-B2D0-468C-B225-EFBD91188C83}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UDPclient", "UDPclient\UDPclient.shproj", "{74234473-92EF-40B9-A851-1861B1E81846}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+EndGlobal

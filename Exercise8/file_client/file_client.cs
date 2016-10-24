@@ -73,7 +73,7 @@ namespace tcp
 				Console.WriteLine("Exception: " + e.Message);
 			}
 
-
+		}
 		/// <summary>
 		/// Receives the file.
 		/// </summary>	
