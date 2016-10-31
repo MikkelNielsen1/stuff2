@@ -20,10 +20,10 @@ namespace Exercise9UDP
 			
 			IPEndPoint ep = new IPEndPoint (new IPAddress (ipAddress), PORT);
 			UdpClient client = new UdpClient (ep);
-
-			IPEndPoint senderinfo = new IPEndPoint (IPAddress.Any, 0);
+			
 			while (true) 
 			{
+				IPEndPoint senderinfo = new IPEndPoint (IPAddress.Any, 0);
 				Byte[] receiveBytes = client.Receive (ref senderinfo); 	
 
 
