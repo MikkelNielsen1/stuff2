@@ -1,0 +1,5 @@
+/root/newfuckingiknfolder/Exercise9UDP/get_measurement/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/root/newfuckingiknfolder/Exercise9UDP/get_measurement/bin/Debug/get_measurement.exe.mdb
+/root/newfuckingiknfolder/Exercise9UDP/get_measurement/bin/Debug/get_measurement.exe
+/root/newfuckingiknfolder/Exercise9UDP/get_measurement/obj/x86/Debug/get_measurement.exe
+/root/newfuckingiknfolder/Exercise9UDP/get_measurement/obj/x86/Debug/get_measurement.exe.mdb
