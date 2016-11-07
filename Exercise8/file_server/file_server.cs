@@ -30,10 +30,9 @@ namespace tcp
  		/// </summary>
 		private file_server ()
 		{
-			TcpListener serverSocket;
+			TcpListener serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
 			try
 			{
-				serverSocket = new TcpListener(new IPAddress(ipAddress), PORT);
 				serverSocket.Start ();
 				
 				while(true)
