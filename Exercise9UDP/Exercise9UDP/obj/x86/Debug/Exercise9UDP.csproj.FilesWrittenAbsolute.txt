@@ -3,3 +3,8 @@
 /root/newfuckingiknfolder/Exercise9UDP/Exercise9UDP/bin/Debug/Exercise9UDP.exe
 /root/newfuckingiknfolder/Exercise9UDP/Exercise9UDP/obj/x86/Debug/Exercise9UDP.exe
 /root/newfuckingiknfolder/Exercise9UDP/Exercise9UDP/obj/x86/Debug/Exercise9UDP.exe.mdb
+/root/IKNgit/Exercise9UDP/Exercise9UDP/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/root/IKNgit/Exercise9UDP/Exercise9UDP/bin/Debug/Exercise9UDP.exe.mdb
+/root/IKNgit/Exercise9UDP/Exercise9UDP/bin/Debug/Exercise9UDP.exe
+/root/IKNgit/Exercise9UDP/Exercise9UDP/obj/x86/Debug/Exercise9UDP.exe
+/root/IKNgit/Exercise9UDP/Exercise9UDP/obj/x86/Debug/Exercise9UDP.exe.mdb
