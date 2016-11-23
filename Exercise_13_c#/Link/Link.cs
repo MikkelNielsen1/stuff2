@@ -14,7 +14,7 @@ namespace Linklaget
 	/// </summary>
 	public class Link
 	{
-		bool IsPrevByteB = false;
+
 		/// <summary>
 		/// The DELIMITE for slip protocol.
 		/// </summary>
@@ -97,13 +97,22 @@ namespace Linklaget
 		/// </param>
 		public int receive (ref byte[] buf)
 		{
+			bool IsPrevByteB = false;
+			bool DetectedA = false;
 			int currentByte;
 			List<byte> readBytes = new List<byte>();
 			Console.Write ("Reading bytes: ");
 			while ((currentByte = serialPort.ReadByte ()) != -1) 
 			{
-				if (currentByte == Convert.ToByte('A'))
+				if (currentByte == Convert.ToByte ('A') && !DetectedA) 
+				{
+					DetectedA = true;
 					continue;
+				}
+				else if (currentByte == Convert.ToByte ('A') && DetectedA)
+				{
+					break;
+				}
 				
 				if (IsPrevByteB == false) 
 				{
@@ -120,6 +129,7 @@ namespace Linklaget
 				} 
 				else if (IsPrevByteB == true) 
 				{
+					
 					if (currentByte == Convert.ToByte('C')) 
 					{
 						readBytes.Add (Convert.ToByte ('A'));
