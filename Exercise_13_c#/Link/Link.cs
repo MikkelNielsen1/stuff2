@@ -97,9 +97,9 @@ namespace Linklaget
 		/// </param>
 		public int receive (ref byte[] buf)
 		{
-			byte currentByte;
+			int currentByte;
 			List<byte> readBytes = new List<byte>();
-
+			Console.Write ("Reading bytes: ");
 			while ((currentByte = serialPort.ReadByte ()) != -1) 
 			{
 				if (currentByte == Convert.ToByte('A'))
@@ -113,7 +113,7 @@ namespace Linklaget
 					} 
 					else 
 					{
-						readBytes.Add(Convert.ToByte(currentByte));
+						readBytes.Add(Convert.ToByte((byte)currentByte));
 					}
 
 
@@ -134,10 +134,10 @@ namespace Linklaget
 
 
 			}
-			
+			Console.WriteLine ("Done reading bytes");
 
-			buf = readBytes;
-			return readBytes.LastIndexOf - 1;
+			buf = readBytes.ToArray();
+			return readBytes.Count;
 		}
 	}
 }

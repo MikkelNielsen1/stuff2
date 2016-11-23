@@ -12,13 +12,18 @@ namespace Application
 		/// The BUFSIZE
 		/// </summary>
 		private const int BUFSIZE = 1000;
+	
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="file_server"/> class.
 		/// </summary>
 		private file_server ()
 		{
-			// TO DO Your own code
+			Transport transport = new Transport (BUFSIZE);
+
+			byte[] receiveStuff = null;
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
 		}
 
 		/// <summary>
