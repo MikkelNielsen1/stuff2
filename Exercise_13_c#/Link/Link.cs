@@ -61,7 +61,7 @@ namespace Linklaget
 
 			buffer[0] = Convert.ToByte('A');
 
-			int bufferIndex = 0;
+			int bufferIndex = 1;
 			for (int i = 0; i < size; i++) 
 			{
 				if (buf [i] == 'A') 
@@ -81,13 +81,14 @@ namespace Linklaget
 				else
 				{
 					buffer[bufferIndex] = buf[i];
+					Console.WriteLine ("Inserting " + buf [i]);
 					bufferIndex++;
 				}
 			}
 
 			buffer [bufferIndex] = Convert.ToByte ('A');
 
-			serialPort.Write (buffer, 0, bufferIndex);
+			serialPort.Write (buffer, 0, bufferIndex+1);
 
 		}
 

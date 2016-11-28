@@ -30,7 +30,7 @@ namespace Application
 	    {
 			Transport transport = new Transport (1000);
 
-			byte[] sendBuff = Encoding.ASCII.GetBytes("AbcdefBg");
+			byte[] sendBuff = Encoding.ASCII.GetBytes("ABC");
 
 			transport.send (sendBuff, sendBuff.Length);
 	    }
