@@ -40,7 +40,7 @@ namespace Transportlaget
 		/// </summary>
 		private const int DEFAULT_SEQNO = 2;
 
-		private byte typeData
+
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Transport"/> class.
@@ -103,7 +103,7 @@ namespace Transportlaget
 		/// Size.
 		/// </param>
 		public void send(byte[] buf, int size)
-		{
+		{/*
 			buffer [2] = seqNo;
 			buffer [3] = TransType.DATA;
 			Array.Copy(buf, 0, buffer, 4, buf.Length);
@@ -126,9 +126,9 @@ namespace Transportlaget
 				
 			}
 
+			*/
 
-
-
+			link.send (buf, size);
 
 
 

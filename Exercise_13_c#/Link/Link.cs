@@ -57,9 +57,9 @@ namespace Linklaget
 		/// </param>
 		public void send (byte[] buf, int size)
 		{
-			List<byte> bytelist = new List<byte> ();
+			
 
-			buffer = Convert.ToByte('A');
+			buffer[0] = Convert.ToByte('A');
 
 			int bufferIndex = 0;
 			for (int i = 0; i < size; i++) 
@@ -68,12 +68,14 @@ namespace Linklaget
 				{
 					buffer [bufferIndex] = Convert.ToByte ('B');
 					buffer [bufferIndex + 1] = Convert.ToByte ('C');
+					Console.WriteLine ("Inserting A " + buf[i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
 					bufferIndex += 2;
 				}
 				else if(buf[i] == 'B') 
 				{
 					buffer[bufferIndex] = Convert.ToByte('B');
 					buffer [bufferIndex + 1] = Convert.ToByte('D');
+					Console.WriteLine ("Inserting B " + buf [i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
 					bufferIndex += 2;
 				}
 				else
