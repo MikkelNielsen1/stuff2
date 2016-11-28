@@ -59,30 +59,33 @@ namespace Linklaget
 		{
 			List<byte> bytelist = new List<byte> ();
 
-			bytelist.Insert (0, Convert.ToByte('A'));
+			buffer = Convert.ToByte('A');
 
-			foreach (var item in buf) 
+			int bufferIndex = 0;
+			for (int i = 0; i < size; i++) 
 			{
-				if (item == 'A') 
+				if (buf [i] == 'A') 
 				{
-					bytelist.Add (Convert.ToByte('B'));
-					bytelist.Add (Convert.ToByte('C'));
+					buffer [bufferIndex] = Convert.ToByte ('B');
+					buffer [bufferIndex + 1] = Convert.ToByte ('C');
+					bufferIndex += 2;
 				}
-				else if(item == 'B') 
+				else if(buf[i] == 'B') 
 				{
-					bytelist.Add (Convert.ToByte('B'));
-					bytelist.Add (Convert.ToByte('D'));
+					buffer[bufferIndex] = Convert.ToByte('B');
+					buffer [bufferIndex + 1] = Convert.ToByte('D');
+					bufferIndex += 2;
 				}
 				else
 				{
-					bytelist.Add (Convert.ToByte(item));
+					buffer[bufferIndex] = buf[i];
+					bufferIndex++;
 				}
 			}
 
-			bytelist.Add (Convert.ToByte('A'));
-			byte[] sendBuffer = bytelist.ToArray();
+			buffer [bufferIndex] = Convert.ToByte ('A');
 
-			serialPort.Write (sendBuffer, 0, sendBuffer.Length);
+			serialPort.Write (buffer, 0, bufferIndex);
 
 		}
 
