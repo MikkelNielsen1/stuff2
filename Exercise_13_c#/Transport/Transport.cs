@@ -103,35 +103,33 @@ namespace Transportlaget
 		/// Size.
 		/// </param>
 		public void send(byte[] buf, int size)
-		{/*
+		{
+			errorCount = 0;
 			buffer [2] = seqNo;
-			buffer [3] = TransType.DATA;
+			buffer [3] = Convert.ToByte(TransType.DATA);
+
 			Array.Copy(buf, 0, buffer, 4, buf.Length);
+			checksum.calcChecksum (ref buffer, buf.Length+4);
+			Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
 
-			checksum.calcChecksum (buffer, buffer.Length);
 
-			link.send (buffer, buffer.size);
+			Console.WriteLine ("Sending buffer contents");
+			link.send (buffer, buf.Length+4);
 
 			while(errorCount <= 5)
 			{
-
+				Console.Write ("Waiting for receiceAck");
 				if(receiveAck() == true){
 					return;
 				}
 				else if (receiveAck() == false)
 				{
-					link.send (buf, size);
+					link.send (buffer, buf.Length+4);
 					errorCount++;
 				}
-				
+				Console.WriteLine ("Poops");
 			}
-
-			*/
-
-			link.send (buf, size);
-
-
-
+				
 		}
 
 		/// <summary>

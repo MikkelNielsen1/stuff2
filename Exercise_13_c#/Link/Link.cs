@@ -64,14 +64,14 @@ namespace Linklaget
 			int bufferIndex = 1;
 			for (int i = 0; i < size; i++) 
 			{
-				if (buf [i] == 'A') 
+				if (buf [i] == Convert.ToByte('A')) 
 				{
 					buffer [bufferIndex] = Convert.ToByte ('B');
 					buffer [bufferIndex + 1] = Convert.ToByte ('C');
 					Console.WriteLine ("Inserting A " + buf[i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
 					bufferIndex += 2;
 				}
-				else if(buf[i] == 'B') 
+				else if(buf[i] == Convert.ToByte('B')) 
 				{
 					buffer[bufferIndex] = Convert.ToByte('B');
 					buffer [bufferIndex + 1] = Convert.ToByte('D');
@@ -80,9 +80,9 @@ namespace Linklaget
 				}
 				else
 				{
-					buffer[bufferIndex] = buf[i];
-					Console.WriteLine ("Inserting " + buf [i]);
+					buffer [bufferIndex] = buf [i];
 					bufferIndex++;
+					Console.WriteLine (buf [i]);
 				}
 			}
 
