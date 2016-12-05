@@ -140,7 +140,18 @@ namespace Transportlaget
 		/// </param>
 		public int receive (ref byte[] buf)
 		{
-			return link.receive (ref buf);
+			int size = link.receive (ref buffer);
+
+			bool IsDataValid = checksum.checkChecksum (buffer, size);
+
+			while (!IsDataValid) 
+			{
+				sendAck (IsDataValid);
+			}
+			Console.WriteLine ("Poopies");
+
+			Array.Copy (buffer, 4, buf, 0, size - 4);
+			return size-4;
 		}
 	}
 }
