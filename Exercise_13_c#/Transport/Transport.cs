@@ -154,10 +154,14 @@ namespace Transportlaget
 					sendAck (IsDataValid);
 				}
 
-				seqNo = old_seqNo;
+				if (buffer [2] == old_seqNo) {
+					sendAck (true);
+				} else {
+					seqNo = old_seqNo;
 
-				Array.Copy (buffer, 4, buf, 0, size - 4);
-				return size-4;
+					Array.Copy (buffer, 4, buf, 0, size - 4);
+					return size-4;	
+				}
 			}
 
 			return 0;
