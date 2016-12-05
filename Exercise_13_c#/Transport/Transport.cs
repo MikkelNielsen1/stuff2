@@ -119,15 +119,17 @@ namespace Transportlaget
 			while(errorCount <= 5)
 			{
 				Console.Write ("Waiting for receiceAck");
-				if(receiveAck() == true){
-					return;
-				}
-				else if (receiveAck() == false)
+				if (receiveAck () == true) 
 				{
-					link.send (buffer, buf.Length+4);
+					Console.WriteLine ("ACK received");
+					return;
+				} 
+				else
+				{
+					Console.WriteLine ("ACK not received");
+					link.send (buffer, buf.Length + 4);
 					errorCount++;
 				}
-				Console.WriteLine ("Poops");
 			}
 				
 		}
