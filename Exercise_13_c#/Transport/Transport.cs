@@ -144,16 +144,23 @@ namespace Transportlaget
 		{
 			int size = link.receive (ref buffer);
 
-			bool IsDataValid = checksum.checkChecksum (buffer, size);
-
-			while (!IsDataValid) 
+			if (size > 0) 
 			{
-				sendAck (IsDataValid);
-			}
-			Console.WriteLine ("Poopies");
+				bool IsDataValid = checksum.checkChecksum (buffer, size);
 
-			Array.Copy (buffer, 4, buf, 0, size - 4);
-			return size-4;
+				while (!IsDataValid) 
+				{
+					sendAck (IsDataValid);
+				}
+
+				seqNo = old_seqNo;
+
+				Array.Copy (buffer, 4, buf, 0, size - 4);
+				return size-4;
+			}
+
+			return 0;
+
 		}
 	}
 }
