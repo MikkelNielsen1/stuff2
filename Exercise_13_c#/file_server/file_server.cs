@@ -21,7 +21,7 @@ namespace Application
 		{
 			Transport transport = new Transport (BUFSIZE);
 
-			byte[] receiveStuff = null;
+			byte[] receiveStuff = new byte[1000];
 			transport.receive (ref receiveStuff);
 			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
 		}
