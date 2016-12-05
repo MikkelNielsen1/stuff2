@@ -122,6 +122,7 @@ namespace Transportlaget
 				if (receiveAck () == true) 
 				{
 					Console.WriteLine ("ACK received");
+					seqNo = DEFAULT_SEQNO;
 					return;
 				} 
 				else
