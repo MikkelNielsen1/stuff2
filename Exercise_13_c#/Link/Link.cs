@@ -82,7 +82,7 @@ namespace Linklaget
 				{
 					buffer [bufferIndex] = buf [i];
 					bufferIndex++;
-					Console.WriteLine (buf [i]);
+					//Console.WriteLine (buf [i]);
 				}
 			}
 

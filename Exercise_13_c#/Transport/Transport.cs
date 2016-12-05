@@ -91,6 +91,7 @@ namespace Transportlaget
 			checksum.calcChecksum (ref ackBuf, (int)TransSize.ACKSIZE);
 
 			link.send(ackBuf, (int)TransSize.ACKSIZE);
+
 		}
 
 		/// <summary>
@@ -149,15 +150,19 @@ namespace Transportlaget
 			{
 				bool IsDataValid = checksum.checkChecksum (buffer, size);
 
-				while (!IsDataValid) 
+				if (!IsDataValid) 
 				{
 					sendAck (IsDataValid);
 				}
-
-				if (buffer [2] == old_seqNo) {
+				else if (buffer [2] == old_seqNo) 
+				{
 					sendAck (true);
-				} else {
-					seqNo = old_seqNo;
+				} 
+				else 
+				{
+					sendAck (true);
+
+					old_seqNo = buffer [2]; 
 
 					Array.Copy (buffer, 4, buf, 0, size - 4);
 					return size-4;	
