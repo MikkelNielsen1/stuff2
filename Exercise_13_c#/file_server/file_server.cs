@@ -24,6 +24,26 @@ namespace Application
 			byte[] receiveStuff = new byte[1000];
 			transport.receive (ref receiveStuff);
 			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			transport.receive (ref receiveStuff);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+		
 		}
 
 		/// <summary>

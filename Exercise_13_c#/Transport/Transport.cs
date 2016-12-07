@@ -158,11 +158,12 @@ namespace Transportlaget
 
 				if (!IsDataValid) 
 				{
+					Console.WriteLine ("Data corrupted, requesting retransmit");
 					sendAck (IsDataValid);
 				}
 				else if (buffer [2] == old_seqNo) 
 				{
-					sendAck (true);
+					sendAck (false);
 				} 
 				else 
 				{
