@@ -27,11 +27,38 @@ namespace Application
 		/// Filnavn med evtuelle sti.
 		/// </param>
 	    private file_client(String[] args)
-	    {
+	    {	
 			Transport transport = new Transport (1000);
 
 			byte[] sendBuff = Encoding.ASCII.GetBytes("ABC");
 			transport.send (sendBuff, sendBuff.Length);
+
+			sendBuff = Encoding.ASCII.GetBytes("DEF");
+			transport.send (sendBuff, sendBuff.Length);
+
+			sendBuff = Encoding.ASCII.GetBytes("ABE");
+			transport.send (sendBuff, sendBuff.Length);
+
+			sendBuff = Encoding.ASCII.GetBytes("XYZ");
+			transport.send (sendBuff, sendBuff.Length);
+
+			/*
+			string filename = args [1];
+
+			LIB.writeTextTCP (serverStream, filename);
+
+			// Extract filename
+			string extractedFilename = LIB.extractFileName (filename);
+
+			// Recieve notice if filename exists
+			long currentfilesize = LIB.getFileSizeTCP (serverStream);
+			//Console.WriteLine (currentfilesize);
+
+			// If filename exists recieve file
+			if (currentfilesize != 0) {
+				receiveFile (extractedFilename, serverStream, currentfilesize);
+			} else
+				Console.WriteLine ("Filename: " + extractedFilename + " does not exist"); */
 	    }
 
 		/// <summary>
