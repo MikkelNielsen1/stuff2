@@ -138,7 +138,7 @@ namespace Transportlaget
 				else
 				{
 					Console.WriteLine ("ACK not received, Retransmitting");
-					link.send (buffer, buf.Length + 4);
+					link.send (buffer, buffer.Length);
 					retransmitCount++;
 				}
 			}

@@ -33,14 +33,14 @@ namespace Application
 			byte[] sendBuff = Encoding.ASCII.GetBytes("ABC");
 			transport.send (sendBuff, sendBuff.Length);
 
-			sendBuff = Encoding.ASCII.GetBytes("DEF");
-			transport.send (sendBuff, sendBuff.Length);
+			byte[] sendBuff1 = Encoding.ASCII.GetBytes("DEF");
+			transport.send (sendBuff1, sendBuff1.Length);
 
-			sendBuff = Encoding.ASCII.GetBytes("ABE");
-			transport.send (sendBuff, sendBuff.Length);
+			byte[] sendBuff2 = Encoding.ASCII.GetBytes("ABE");
+			transport.send (sendBuff2, sendBuff2.Length);
 
-			sendBuff = Encoding.ASCII.GetBytes("XYZ");
-			transport.send (sendBuff, sendBuff.Length);
+			byte[] sendBuff3 = Encoding.ASCII.GetBytes("XYZ");
+			transport.send (sendBuff3, sendBuff3.Length);
 
 			/*
 			string filename = args [1];
