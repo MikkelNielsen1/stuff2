@@ -126,10 +126,13 @@ namespace Transportlaget
 			while(retransmitCount <= 5)
 			{
 				Console.Write ("Waiting for receiceAck");
+
 				if (receiveAck () == true) 
 				{
 					Console.WriteLine ("ACK received");
-					seqNo = DEFAULT_SEQNO;
+					old_seqNo = (byte)((buf[(int)TransCHKSUM.SEQNO] + 1) % 2);
+
+
 					return;
 				} 
 				else
