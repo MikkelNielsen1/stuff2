@@ -161,7 +161,7 @@ namespace Transportlaget
 				if (!IsDataValid || buffer [2] == old_seqNo) 
 				{
 					Console.WriteLine ("Data corrupted, requesting retransmit");
-					sendAck (IsDataValid);
+					sendAck (false);
 				}
 				else 
 				{
