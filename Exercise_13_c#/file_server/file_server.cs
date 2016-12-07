@@ -25,24 +25,38 @@ namespace Application
 			transport.receive (ref receiveStuff);
 			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
 
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
 
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
-
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
-
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+			byte[] receiveStuff1 = new byte[1000];
+			transport.receive (ref receiveStuff1);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff1));
 
 
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+			byte[] receiveStuff2 = new byte[1000];
+			transport.receive (ref receiveStuff2);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff2));
 
-			transport.receive (ref receiveStuff);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff));
+
+			byte[] receiveStuff3 = new byte[1000];
+			transport.receive (ref receiveStuff3);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff3));
+
+
+			byte[] receiveStuff4 = new byte[1000];
+			transport.receive (ref receiveStuff4);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff4));
+
+			byte[] receiveStuff5 = new byte[1000];
+			transport.receive (ref receiveStuff5);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff5));
+
+			byte[] receiveStuff6 = new byte[1000];
+			transport.receive (ref receiveStuff6);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff6));
+
+			byte[] receiveStuff7 = new byte[1000];
+			transport.receive (ref receiveStuff7);
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff7));
+
 		
 		}
 

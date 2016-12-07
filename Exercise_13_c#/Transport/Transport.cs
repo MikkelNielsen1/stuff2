@@ -159,15 +159,11 @@ namespace Transportlaget
 			{
 				bool IsDataValid = checksum.checkChecksum (buffer, size);
 
-				if (!IsDataValid) 
+				if (!IsDataValid || buffer [2] == old_seqNo) 
 				{
 					Console.WriteLine ("Data corrupted, requesting retransmit");
 					sendAck (IsDataValid);
 				}
-				else if (buffer [2] == old_seqNo) 
-				{
-					sendAck (false);
-				} 
 				else 
 				{
 					sendAck (true);
