@@ -104,7 +104,8 @@ namespace Transportlaget
 		/// </param>
 		public void send(byte[] buf, int size)
 		{
-			// int retransmitCount = 0;
+			int retransmitCount = -1;
+			bool ack = false;
 			buffer [2] = seqNo;
 			buffer [3] = Convert.ToByte(TransType.DATA);
 
@@ -120,17 +121,23 @@ namespace Transportlaget
 
 				Array.Copy(buf, 0, buffer, 4, size);
 				checksum.calcChecksum (ref buffer, size+4);
-				Console.WriteLine ("RESENDING: Calculating checksum" + buffer[0] + " " + buffer[1]);
 
-				if (errorCount == 3) 
+				if (errorCount == 2) 
 				{
 					buffer [2]++;
 				}
-
-				Console.WriteLine ("Sending buffer contents");
+				retransmitCount++;
+				Console.WriteLine ("Sending buffer contents: Transmissioncount: " + retransmitCount);
 				link.send(buffer,size+4);
+
+				ack = receiveAck();
+
+				Console.WriteLine("ACK recieved: " + ack);
+				Console.WriteLine(" ");
+
+
 			}
-			while(!receiveAck());
+			while(ack == false);
 
 			/*
 

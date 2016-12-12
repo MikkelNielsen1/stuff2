@@ -68,14 +68,14 @@ namespace Linklaget
 				{
 					buffer [bufferIndex] = Convert.ToByte ('B');
 					buffer [bufferIndex + 1] = Convert.ToByte ('C');
-					Console.WriteLine ("Inserting A " + buf[i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
+					//Console.WriteLine ("Inserting A " + buf[i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
 					bufferIndex += 2;
 				}
 				else if(buf[i] == Convert.ToByte('B')) 
 				{
 					buffer[bufferIndex] = Convert.ToByte('B');
 					buffer [bufferIndex + 1] = Convert.ToByte('D');
-					Console.WriteLine ("Inserting B " + buf [i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
+					//Console.WriteLine ("Inserting B " + buf [i] + " with " + buffer [bufferIndex] + buffer [bufferIndex+1]);
 					bufferIndex += 2;
 				}
 				else
