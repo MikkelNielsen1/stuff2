@@ -120,7 +120,7 @@ namespace Transportlaget
 
 				Array.Copy(buf, 0, buffer, 4, size);
 				checksum.calcChecksum (ref buffer, size+4);
-				Console.WriteLine ("RESENDING: Calculating checksum" + buffer[0] + " " + buffer[1]);
+
 
 				if (errorCount == 3) 
 				{
