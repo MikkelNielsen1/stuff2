@@ -158,7 +158,9 @@ namespace Transportlaget
 		public int receive (ref byte[] buf)
 		{
 			bool IsDataValid = false;
+			bool IsReceiveOK = true;
 			int size = 0;
+
 
 				do {
 					size = link.receive (ref buffer);
@@ -168,9 +170,10 @@ namespace Transportlaget
 					{
 						Console.WriteLine ("Data corrupted, requesting retransmit");
 						sendAck(false);
+						IsReceiveOK =  false;
 					}
 	
-				} while(!IsDataValid && buffer [2] !l= old_seqNo);
+			} while(IsReceiveOK);
 
 				sendAck (true);
 

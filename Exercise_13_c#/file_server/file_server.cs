@@ -40,7 +40,7 @@ namespace Application
 			transport.receive (ref receiveStuff3);
 			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff3));
 
-
+			/*
 			byte[] receiveStuff4 = new byte[1000];
 			transport.receive (ref receiveStuff4);
 			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff4));
@@ -55,7 +55,7 @@ namespace Application
 
 			byte[] receiveStuff7 = new byte[1000];
 			transport.receive (ref receiveStuff7);
-			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff7));
+			Console.WriteLine (Encoding.ASCII.GetString (receiveStuff7));*/
 
 		
 		}
