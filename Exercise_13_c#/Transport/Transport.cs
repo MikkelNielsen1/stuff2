@@ -163,11 +163,14 @@ namespace Transportlaget
 				do {
 					size = link.receive (ref buffer);
 					IsDataValid = checksum.checkChecksum (buffer, size);
-
-					Console.WriteLine ("Data corrupted, requesting retransmit");
-					sendAck (false);
+					
+					if(!IsDataValid || buffer [2] == old_seqNo)
+					{
+						Console.WriteLine ("Data corrupted, requesting retransmit");
+						sendAck(false);
+					}
 	
-				} while(!IsDataValid || buffer [2] == old_seqNo);
+				} while(!IsDataValid && buffer [2] !l= old_seqNo);
 
 				sendAck (true);
 
