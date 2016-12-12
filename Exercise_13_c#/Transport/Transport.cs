@@ -118,9 +118,20 @@ namespace Transportlaget
 				buffer [2]++;
 			}
 
+			do{
 
-			Console.WriteLine ("Sending buffer contents");
-			link.send (buffer, size+4);
+
+				if (errorCount == 3) 
+				{
+					buffer [2]++;
+				}
+
+				Console.WriteLine ("Sending buffer contents");
+				link.send(buffer,size+4);
+			}
+			while(!receiveAck());
+
+			/*
 
 			while(retransmitCount <= 5)
 			{
@@ -145,7 +156,8 @@ namespace Transportlaget
 					link.send (buffer, buffer.Length);
 					retransmitCount++;
 				}
-			}
+				*/
+
 				
 		}
 
@@ -158,9 +170,7 @@ namespace Transportlaget
 		public int receive (ref byte[] buf)
 		{
 			bool IsDataValid = false;
-			bool IsReceiveOK = true;
 			int size = 0;
-
 
 				do {
 					size = link.receive (ref buffer);
@@ -170,10 +180,9 @@ namespace Transportlaget
 					{
 						Console.WriteLine ("Data corrupted, requesting retransmit");
 						sendAck(false);
-						IsReceiveOK =  false;
 					}
 	
-			} while(IsReceiveOK);
+				} while(!IsDataValid && buffer [2] != old_seqNo);
 
 				sendAck (true);
 
