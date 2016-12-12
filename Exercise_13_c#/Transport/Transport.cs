@@ -108,8 +108,8 @@ namespace Transportlaget
 			buffer [2] = seqNo;
 			buffer [3] = Convert.ToByte(TransType.DATA);
 
-			Array.Copy(buf, 0, buffer, 4, buf.Length);
-			checksum.calcChecksum (ref buffer, buf.Length+4);
+			Array.Copy(buf, 0, buffer, 4, size);
+			checksum.calcChecksum (ref buffer, size+4);
 			Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
 			errorCount++;
 
@@ -120,17 +120,22 @@ namespace Transportlaget
 
 
 			Console.WriteLine ("Sending buffer contents");
-			link.send (buffer, buf.Length+4);
+			link.send (buffer, size+4);
 
 			while(retransmitCount <= 5)
 			{
+				buffer [2] = seqNo;
+				buffer [3] = Convert.ToByte(TransType.DATA);
+
+				Array.Copy(buf, 0, buffer, 4, size);
+				checksum.calcChecksum (ref buffer, size+4);
+
+
 				Console.Write ("Waiting for receiceAck");
 
 				if (receiveAck () == true) 
 				{
 					Console.WriteLine ("ACK received");
-					old_seqNo = (byte)((buf[(int)TransCHKSUM.SEQNO] + 1) % 2);
-
 
 					return;
 				} 
