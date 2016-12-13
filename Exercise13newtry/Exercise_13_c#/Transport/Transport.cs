@@ -150,6 +150,40 @@ namespace Transportlaget
 			bool IsDataValid = false;
 			int size = 0;
 
+
+			do
+			{
+				do
+				{
+					size = link.receive (ref buffer);
+					IsDataValid = checksum.checkChecksum (buffer, size);
+					sendAck(IsDataValid);
+				}while(!IsDataValid);
+
+				if(buffer[2] != old_seqNo)
+				{
+					Array.Copy (buffer, 4, buf, 0, size - 4);
+				}
+				else
+				{
+					size = 4;
+				}
+
+			} while(size == 4);
+			return size - 4;
+
+
+
+
+
+
+
+
+
+
+
+
+			/*
 			do {
 				size = link.receive (ref buffer);
 				IsDataValid = checksum.checkChecksum (buffer, size);
@@ -183,6 +217,7 @@ namespace Transportlaget
 
 
 			return 0;
+			*/
 		}
 	}
 }
