@@ -4,6 +4,9 @@ using System.IO.Ports;
 /// <summary>
 /// Link.
 /// </summary>
+using System.Collections.Generic;
+
+
 namespace Linklaget
 {
 	/// <summary>

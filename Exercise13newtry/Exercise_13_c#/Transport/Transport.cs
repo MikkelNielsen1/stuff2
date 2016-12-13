@@ -136,6 +136,7 @@ namespace Transportlaget
 
 			}
 			while(ack == false);
+			old_seqNo = DEFAULT_SEQNO;
 		}
 
 		/// <summary>

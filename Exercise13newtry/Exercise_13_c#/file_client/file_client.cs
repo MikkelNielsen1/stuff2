@@ -28,7 +28,20 @@ namespace Application
 		/// </param>
 	    private file_client(String[] args)
 	    {
-	    	// TO DO Your own code
+			Transport transport = new Transport (1000);
+
+			byte[] sendBuff = Encoding.ASCII.GetBytes("ABC");
+			transport.send (sendBuff, sendBuff.Length);
+
+			byte[] sendBuff1 = Encoding.ASCII.GetBytes("DEF");
+			transport.send (sendBuff1, sendBuff1.Length);
+
+			byte[] sendBuff2 = Encoding.ASCII.GetBytes("ABE");
+			transport.send (sendBuff2, sendBuff2.Length);
+
+			byte[] sendBuff3 = Encoding.ASCII.GetBytes("XYZ");
+			transport.send (sendBuff3, sendBuff3.Length);
+
 	    }
 
 		/// <summary>
