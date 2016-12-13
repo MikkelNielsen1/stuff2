@@ -111,13 +111,15 @@ namespace Transportlaget
 
 				Array.Copy(buf, 0, buffer, 4, size);
 				checksum.calcChecksum (ref buffer, size+4);
-				Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
-				errorCount++;
+				//Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
 
+				/* // Test code for changing checksum on second packet
+				errorCount++;
 				if (errorCount == 2) 
 				{
-					buffer [2]++;
-				}
+					buffer [1]++;
+				}*/
+
 				retransmitCount++;
 				Console.WriteLine ("Sending buffer contents: Transmissioncount: " + retransmitCount);
 				link.send(buffer,size+4);
@@ -126,6 +128,12 @@ namespace Transportlaget
 
 				Console.WriteLine("ACK recieved: " + ack);
 				Console.WriteLine(" ");
+
+				if (retransmitCount == 5)
+				{
+					Console.WriteLine("Transmitcount exceeded 5");
+					break;
+				}
 
 
 			}

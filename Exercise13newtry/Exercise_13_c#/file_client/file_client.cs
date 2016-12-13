@@ -29,18 +29,10 @@ namespace Application
 	    private file_client(String[] args)
 	    {
 			Transport transport = new Transport (1000);
+			string filename = args [1];
 
-			byte[] sendBuff = Encoding.ASCII.GetBytes("ABC");
-			transport.send (sendBuff, sendBuff.Length);
-
-			byte[] sendBuff1 = Encoding.ASCII.GetBytes("DEF");
-			transport.send (sendBuff1, sendBuff1.Length);
-
-			byte[] sendBuff2 = Encoding.ASCII.GetBytes("ABE");
-			transport.send (sendBuff2, sendBuff2.Length);
-
-			byte[] sendBuff3 = Encoding.ASCII.GetBytes("XYZ");
-			transport.send (sendBuff3, sendBuff3.Length);
+			receiveFile (filename, transport);
+		
 
 	    }
 
@@ -55,8 +47,45 @@ namespace Application
 		/// </param>
 		private void receiveFile (String fileName, Transport transport)
 		{
-			// TO DO Your own code
+			long readBytes = 0;
+
+			Byte[] readbuffer = new byte[BUFSIZE];
+
+			// Extract filename and send to server
+
+			String extractedFileName = LIB.extractFileName (fileName);
+
+			byte[] filenameToSend = Encoding.ASCII.GetBytes(extractedFileName);
+
+			transport.send (filenameToSend, filenameToSend.Length);
+
+
+			//Receive filelength
+			byte[] receivedFilesize = new byte[100];
+			transport.receive(ref receivedFilesize);
+			int filesize = Int32.Parse (Encoding.ASCII.GetString (receivedFilesize));
+
+			if (filesize != 0) {
+				// Receive file
+				FileStream downloadedfile = File.Create (extractedFileName);
+
+				while (filesize > 0) {
+					readBytes = transport.receive (ref readbuffer);
+					filesize -= readBytes;
+
+					downloadedfile.Write (readbuffer, 0, (int)readBytes);
+				}
+				Console.WriteLine ("Download complete...");
+			} 
+			else 
+			{
+				Console.WriteLine ("Filename: " + extractedFileName + " does not exist"); 
+			}
+
+
 		}
+
+
 
 		/// <summary>
 		/// The entry point of the program, where the program control starts and ends.
