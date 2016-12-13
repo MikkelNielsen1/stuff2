@@ -159,7 +159,7 @@ namespace Transportlaget
 				{
 					size = link.receive (ref buffer);
 					IsDataValid = checksum.checkChecksum (buffer, size);
-					sendAck(false);
+					sendAck(IsDataValid);
 				}while(!IsDataValid);
 
 				if(buffer[2] != old_seqNo)
