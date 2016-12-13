@@ -40,10 +40,8 @@ namespace Transportlaget
 		/// </summary>
 		private const int DEFAULT_SEQNO = 2;
 
-
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Tr ansport"/> class.
+		/// Initializes a new instance of the <see cref="Transport"/> class.
 		/// </summary>
 		public Transport (int BUFSIZE)
 		{
@@ -67,12 +65,12 @@ namespace Transportlaget
 			int size = link.receive(ref buf);
 			if (size != (int)TransSize.ACKSIZE) return false;
 			if(!checksum.checkChecksum(buf, (int)TransSize.ACKSIZE) ||
-				buf[(int)TransCHKSUM.SEQNO] != seqNo ||
-				buf[(int)TransCHKSUM.TYPE] != (int)TransType.ACK)
+					buf[(int)TransCHKSUM.SEQNO] != seqNo ||
+					buf[(int)TransCHKSUM.TYPE] != (int)TransType.ACK)
 				return false;
-
+			
 			seqNo = (byte)((buf[(int)TransCHKSUM.SEQNO] + 1) % 2);
-
+			
 			return true;
 		}
 
@@ -86,7 +84,7 @@ namespace Transportlaget
 		{
 			byte[] ackBuf = new byte[(int)TransSize.ACKSIZE];
 			ackBuf [(int)TransCHKSUM.SEQNO] = (byte)
-				(ackType ? (byte)buffer [(int)TransCHKSUM.SEQNO] : (byte)(buffer [(int)TransCHKSUM.SEQNO] + 1) % 2);
+					(ackType ? (byte)buffer [(int)TransCHKSUM.SEQNO] : (byte)(buffer [(int)TransCHKSUM.SEQNO] + 1) % 2);
 			ackBuf [(int)TransCHKSUM.TYPE] = (byte)(int)TransType.ACK;
 			checksum.calcChecksum (ref ackBuf, (int)TransSize.ACKSIZE);
 
@@ -113,7 +111,7 @@ namespace Transportlaget
 			checksum.calcChecksum (ref buffer, size+4);
 			Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
 			errorCount++;
-		
+
 
 			do{
 				buffer [2] = seqNo;
@@ -138,35 +136,6 @@ namespace Transportlaget
 
 			}
 			while(ack == false);
-
-			/*
-
-			while(retransmitCount <= 5)
-			{
-				buffer [2] = seqNo;
-				buffer [3] = Convert.ToByte(TransType.DATA);
-
-				Array.Copy(buf, 0, buffer, 4, size);
-				checksum.calcChecksum (ref buffer, size+4);
-
-
-				Console.Write ("Waiting for receiceAck");
-
-				if (receiveAck () == true) 
-				{
-					Console.WriteLine ("ACK received");
-
-					return;
-				} 
-				else
-				{
-					Console.WriteLine ("ACK not received, Retransmitting");
-					link.send (buffer, buffer.Length);
-					retransmitCount++;
-				}
-				*/
-
-				
 		}
 
 		/// <summary>
@@ -180,43 +149,39 @@ namespace Transportlaget
 			bool IsDataValid = false;
 			int size = 0;
 
-				do {
-					size = link.receive (ref buffer);
-					IsDataValid = checksum.checkChecksum (buffer, size);
-					
+			do {
+				size = link.receive (ref buffer);
+				IsDataValid = checksum.checkChecksum (buffer, size);
+
 				if(!IsDataValid)
-					{
-						Console.WriteLine ("Data corrupted, requesting retransmit");
-						sendAck(false);
-					}
+				{
+					Console.WriteLine ("Data corrupted, requesting retransmit");
+					sendAck(false);
+				}
 				else{
-					
+
 					if (buffer [2] == old_seqNo) {
 						Console.WriteLine ("Duplicate data. Ignoring current data");
 						sendAck(true);
 						IsDataValid=false;
-					
+
 					}else{
 
-					sendAck (true);
+						sendAck (true);
 
-					old_seqNo = buffer [2]; 
+						old_seqNo = buffer [2]; 
 
-					Array.Copy (buffer, 4, buf, 0, size - 4);
-					return size-4;
+						Array.Copy (buffer, 4, buf, 0, size - 4);
+						return size-4;
 					}
-					
-				}
-	
-				} while(IsDataValid == false);
 
-				
+				}
+
+			} while(IsDataValid == false);
+
+
 
 			return 0;
 		}
-
 	}
 }
-
-
-	
