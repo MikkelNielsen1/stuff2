@@ -104,14 +104,6 @@ namespace Transportlaget
 		{
 			int retransmitCount = -1;
 			bool ack = false;
-			buffer [2] = seqNo;
-			buffer [3] = Convert.ToByte(TransType.DATA);
-
-			Array.Copy(buf, 0, buffer, 4, size);
-			checksum.calcChecksum (ref buffer, size+4);
-			Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
-			errorCount++;
-
 
 			do{
 				buffer [2] = seqNo;
@@ -119,6 +111,8 @@ namespace Transportlaget
 
 				Array.Copy(buf, 0, buffer, 4, size);
 				checksum.calcChecksum (ref buffer, size+4);
+				Console.WriteLine ("Calculating checksum" + buffer[0] + " " + buffer[1]);
+				errorCount++;
 
 				if (errorCount == 2) 
 				{
