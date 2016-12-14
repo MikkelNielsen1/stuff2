@@ -52,7 +52,7 @@ namespace Application
 			Byte[] readbuffer = new byte[BUFSIZE];
 
 			// Extract filename and send to server
-			Console.WriteLine("Sending filename to server")
+			Console.WriteLine("Sending filename to server");
 
 			String extractedFileName = LIB.extractFileName (fileName);
 
@@ -60,11 +60,16 @@ namespace Application
 
 			transport.send (filenameToSend, filenameToSend.Length);
 
+			Console.WriteLine("Filename sent to server: " + extractedFileName);
+
+
 			Console.WriteLine("Receiving filelength");
 			//Receive filelength
 			byte[] receivedFilesize = new byte[100];
 			transport.receive(ref receivedFilesize);
 			long filesize = Convert.ToInt64(Encoding.ASCII.GetString (receivedFilesize));
+			Console.WriteLine ("Filesize sent: " + filesize);
+
 
 			Console.WriteLine("Receiving file");
 			if (filesize != 0) {
