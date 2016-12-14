@@ -22,6 +22,21 @@ namespace Application
 
 			byte[] receivedFilename = new byte[1000];
 
+			transport.receive (ref receivedFilename);
+
+			String filename = Encoding.ASCII.GetString (receivedFilename);
+
+			long filesize = LIB.check_File_Exists (filename);
+
+			byte[] bytefilesize = Encoding.ASCII.GetBytes (filesize.ToString());
+
+			transport.send (bytefilesize, bytefilesize.Length);
+
+			if (filesize > 0) 
+			{
+				sendFile (filename, filesize, transport);
+			}
+
 
 		}
 
@@ -39,7 +54,15 @@ namespace Application
 		/// </param>
 		private void sendFile(String fileName, long fileSize, Transport transport)
 		{
-			// TO DO Your own code
+			byte[] readBytesFromFile = new byte[BUFSIZE];
+
+			FileStream filestream = File.OpenRead(fileName);
+
+			int actualReadBytes = 0;
+			while ( (actualReadBytes = filestream.Read (readBytesFromFile, 0, BUFSIZE)) > 0)
+			{
+				transport.send (readBytesFromFile, actualReadBytes);
+			}
 		}
 
 		/// <summary>

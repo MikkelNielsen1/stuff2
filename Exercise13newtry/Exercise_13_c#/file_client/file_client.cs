@@ -63,7 +63,7 @@ namespace Application
 			//Receive filelength
 			byte[] receivedFilesize = new byte[100];
 			transport.receive(ref receivedFilesize);
-			int filesize = Int32.Parse (Encoding.ASCII.GetString (receivedFilesize));
+			long filesize = Convert.ToInt64(Encoding.ASCII.GetString (receivedFilesize));
 
 			if (filesize != 0) {
 				// Receive file
