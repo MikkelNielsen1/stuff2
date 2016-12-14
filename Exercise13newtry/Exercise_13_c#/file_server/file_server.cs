@@ -20,6 +20,8 @@ namespace Application
 		{
 			Transport transport = new Transport (BUFSIZE);
 
+
+			Console.WriteLine("Receiving filename");
 			byte[] receivedFilename = new byte[1000];
 
 			transport.receive (ref receivedFilename);
@@ -30,6 +32,8 @@ namespace Application
 
 			byte[] bytefilesize = Encoding.ASCII.GetBytes (filesize.ToString());
 
+
+			Console.WriteLine ("Sending filesize");
 			transport.send (bytefilesize, bytefilesize.Length);
 
 			if (filesize > 0) 
@@ -54,6 +58,7 @@ namespace Application
 		/// </param>
 		private void sendFile(String fileName, long fileSize, Transport transport)
 		{
+			Console.WriteLine ("Sending file");
 			byte[] readBytesFromFile = new byte[BUFSIZE];
 
 			FileStream filestream = File.OpenRead(fileName);
