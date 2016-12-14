@@ -30,7 +30,7 @@ namespace Application
 	    {
 			Transport transport = new Transport (1000);
 			string filename; //= args [0];
-			filename = "ABCABC";
+			filename = "doggo.jpg";
 			receiveFile (filename, transport);
 		
 
@@ -66,9 +66,9 @@ namespace Application
 			byte[] fileSizeBuf = new byte[BUFSIZE];
 			int receivedByteCount = transport.receive (ref fileSizeBuf);
 
-			int fileSize = Int32.Parse (Encoding.ASCII.GetString (fileSizeBuf, 0, receivedByteCount));
+			int filesize = Int32.Parse (Encoding.ASCII.GetString (fileSizeBuf, 0, receivedByteCount));
 
-			Console.WriteLine ("Received file size: " + fileSize);
+			Console.WriteLine ("Received file size: " + filesize);
 
 			/*
 			Console.WriteLine("Receiving filelength");
@@ -79,7 +79,6 @@ namespace Application
 			Console.WriteLine ("Filesize sent: " + filesize);
 			*/
 
-			/*
 			Console.WriteLine("Receiving file");
 			if (filesize != 0) {
 				// Receive file
@@ -87,7 +86,7 @@ namespace Application
 
 				while (filesize > 0) {
 					readBytes = transport.receive (ref readbuffer);
-					filesize -= readBytes;
+					filesize -= (int)readBytes;
 
 					downloadedfile.Write (readbuffer, 0, (int)readBytes);
 				}
@@ -97,8 +96,6 @@ namespace Application
 			{
 				Console.WriteLine ("Filename: " + extractedFileName + " does not exist"); 
 			}
-
-*/
 		}
 
 
