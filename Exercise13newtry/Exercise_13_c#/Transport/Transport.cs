@@ -102,6 +102,8 @@ namespace Transportlaget
 		/// </param>
 		public void send(byte[] buf, int size)
 		{
+			buffer = new byte[size+4];
+
 			int retransmitCount = -1;
 			bool ack = false;
 

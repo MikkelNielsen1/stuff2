@@ -41,12 +41,10 @@ namespace Application
 			transport.send (bytefilesize, bytefilesize.Length);
 			Console.WriteLine ("Filesize sent: " + filesize);
 
-			/*
 			if (filesize > 0) 
 			{
 				sendFile (filename, filesize, transport);
 			}
-			*/
 
 		}
 
