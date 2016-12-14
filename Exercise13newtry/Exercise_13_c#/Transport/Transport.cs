@@ -174,52 +174,6 @@ namespace Transportlaget
 			} while(size == 4);
 			return size - 4;
 
-
-
-
-
-
-
-
-
-
-
-
-			/*
-			do {
-				size = link.receive (ref buffer);
-				IsDataValid = checksum.checkChecksum (buffer, size);
-
-				if(!IsDataValid)
-				{
-					Console.WriteLine ("Data corrupted, requesting retransmit");
-					sendAck(false);
-				}
-				else{
-
-					if (buffer [2] == old_seqNo) {
-						Console.WriteLine ("Duplicate data. Ignoring current data");
-						sendAck(true);
-						IsDataValid=false;
-
-					}else{
-
-						sendAck (true);
-
-						old_seqNo = buffer [2]; 
-
-						Array.Copy (buffer, 4, buf, 0, size - 4);
-						return size-4;
-					}
-
-				}
-
-			} while(IsDataValid == false);
-
-
-
-			return 0;
-			*/
 		}
 	}
 }
