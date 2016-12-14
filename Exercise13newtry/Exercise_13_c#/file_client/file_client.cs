@@ -29,7 +29,7 @@ namespace Application
 	    private file_client(String[] args)
 	    {
 			Transport transport = new Transport (1000);
-			string filename = args [1];
+			string filename = args [0];
 
 			receiveFile (filename, transport);
 		
