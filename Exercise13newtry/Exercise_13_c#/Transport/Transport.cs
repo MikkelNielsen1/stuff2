@@ -129,7 +129,7 @@ namespace Transportlaget
 				Console.WriteLine("ACK recieved: " + ack);
 				Console.WriteLine(" ");
 
-				if (retransmitCount == 5)
+				if (retransmitCount == 2)
 				{
 					Console.WriteLine("Transmitcount exceeded 5");
 					break;
