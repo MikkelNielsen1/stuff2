@@ -29,8 +29,8 @@ namespace Application
 	    private file_client(String[] args)
 	    {
 			Transport transport = new Transport (1000);
-			string filename; //= args [0];
-			filename = "doggo.jpg";
+			string filename = args [0];
+			//filename = "index.jpeg";
 			receiveFile (filename, transport);
 		
 
@@ -61,7 +61,9 @@ namespace Application
 
 			transport.send (filenameToSend, filenameToSend.Length);
 
+
 			Console.WriteLine("Filename sent to server: " + extractedFileName);
+			Console.WriteLine ();
 
 			byte[] fileSizeBuf = new byte[BUFSIZE];
 			int receivedByteCount = transport.receive (ref fileSizeBuf);
@@ -69,15 +71,7 @@ namespace Application
 			int filesize = Int32.Parse (Encoding.ASCII.GetString (fileSizeBuf, 0, receivedByteCount));
 
 			Console.WriteLine ("Received file size: " + filesize);
-
-			/*
-			Console.WriteLine("Receiving filelength");
-			//Receive filelength
-			byte[] receivedFilesize = new byte[100];
-			transport.receive(ref receivedFilesize);
-			long filesize = Convert.ToInt64(Encoding.ASCII.GetString (receivedFilesize));
-			Console.WriteLine ("Filesize sent: " + filesize);
-			*/
+			Console.WriteLine ();
 
 			Console.WriteLine("Receiving file");
 			if (filesize != 0) {
