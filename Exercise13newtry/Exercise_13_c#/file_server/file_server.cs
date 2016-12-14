@@ -22,11 +22,15 @@ namespace Application
 
 
 			Console.WriteLine("Receiving filename");
+
+
 			byte[] receivedFilename = new byte[1000];
 
-			transport.receive (ref receivedFilename);
+			int buffSize = transport.receive (ref receivedFilename);
 
-			String filename = Encoding.ASCII.GetString (receivedFilename);
+			String filename = Encoding.ASCII.GetString (receivedFilename, 0, buffSize);
+
+			Console.WriteLine ("Received filename: " + filename);
 
 			long filesize = LIB.check_File_Exists (filename);
 
@@ -35,12 +39,14 @@ namespace Application
 
 			Console.WriteLine ("Sending filesize");
 			transport.send (bytefilesize, bytefilesize.Length);
+			Console.WriteLine ("Filesize sent: " + filesize);
 
+			/*
 			if (filesize > 0) 
 			{
 				sendFile (filename, filesize, transport);
 			}
-
+			*/
 
 		}
 

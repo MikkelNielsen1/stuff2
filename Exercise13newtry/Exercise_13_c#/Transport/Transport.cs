@@ -165,6 +165,7 @@ namespace Transportlaget
 				if(buffer[2] != old_seqNo)
 				{
 					Array.Copy (buffer, 4, buf, 0, size - 4);
+					old_seqNo = buffer[2];
 				}
 				else
 				{
