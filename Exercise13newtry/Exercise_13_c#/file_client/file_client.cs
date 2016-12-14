@@ -29,8 +29,8 @@ namespace Application
 	    private file_client(String[] args)
 	    {
 			Transport transport = new Transport (1000);
-			string filename = args [0];
-
+			string filename; //= args [0];
+			filename = "ABCABC";
 			receiveFile (filename, transport);
 		
 
@@ -56,21 +56,30 @@ namespace Application
 
 			String extractedFileName = LIB.extractFileName (fileName);
 
+
 			byte[] filenameToSend = Encoding.ASCII.GetBytes(extractedFileName);
 
 			transport.send (filenameToSend, filenameToSend.Length);
 
 			Console.WriteLine("Filename sent to server: " + extractedFileName);
 
+			byte[] fileSizeBuf = new byte[BUFSIZE];
+			int receivedByteCount = transport.receive (ref fileSizeBuf);
 
+			int fileSize = Int32.Parse (Encoding.ASCII.GetString (fileSizeBuf, 0, receivedByteCount));
+
+			Console.WriteLine ("Received file size: " + fileSize);
+
+			/*
 			Console.WriteLine("Receiving filelength");
 			//Receive filelength
 			byte[] receivedFilesize = new byte[100];
 			transport.receive(ref receivedFilesize);
 			long filesize = Convert.ToInt64(Encoding.ASCII.GetString (receivedFilesize));
 			Console.WriteLine ("Filesize sent: " + filesize);
+			*/
 
-
+			/*
 			Console.WriteLine("Receiving file");
 			if (filesize != 0) {
 				// Receive file
@@ -89,7 +98,7 @@ namespace Application
 				Console.WriteLine ("Filename: " + extractedFileName + " does not exist"); 
 			}
 
-
+*/
 		}
 
 
